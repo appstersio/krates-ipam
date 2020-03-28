@@ -1,6 +1,6 @@
 # Krates IPAM
 
-[![Build Status](https://travis-ci.org/appstersio/krates-ipam.svg?branch=master)](https://travis-ci.org/appstersio/krates-ipam)
+[![Build Status](https://travis-ci.org/appstersio/krates-ipam.svg?branch=master)](https://travis-ci.org/appstersio/krates-ipam) [![Docker Image](https://images.microbadger.com/badges/version/krates/ipam-plugin.svg)](https://hub.docker.com/repository/docker/krates/ipam-plugin)
 
 A Docker/libnetwork IPAM driver plugin, using etcd for cluster storage.
 
