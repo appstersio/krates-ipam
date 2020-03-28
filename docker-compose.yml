@@ -1,9 +1,12 @@
 plugin:
-  build: .
+  image: krates/ipam-plugin:${VERSION}
   net: host
+  log_driver: journald
   volumes:
-    - /run/docker/plugins/:/run/docker/plugins/
-    - /var/run/docker.sock:/var/run/docker.sock
+    - "./:/app"
+    - "/run/docker/plugins/:/run/docker/plugins/"
+    - "/var/run/docker.sock:/var/run/docker.sock"
 etcd:
-  image: kontena/etcd:2.3.3
+  image: krates/etcd:2.3.7
+  log_driver: journald
   net: host

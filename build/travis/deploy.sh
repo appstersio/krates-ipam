@@ -1,10 +1,6 @@
 #!/bin/sh
+set -ue
 
 # login
-docker login -u kontenabot -p $DOCKER_HUB_PASSWORD
+docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
-# install dependencies for running Rake tasks
-gem install --no-ri --no-doc bundler rake colorize dotenv
-
-rake release:build_docker
-rake release:push_docker

@@ -1,36 +1,14 @@
+language: minimal
 sudo: required
-
-language: ruby
-
-rvm:
-  - 2.3.1
-
-cache: bundler
-
-cache:
-  directories:
-  - vendor/bundle
-
 services:
   - docker
-
 env:
   global:
-    # DockerHub password
-    - secure: "nOMwd0f9zpkBm27W4fMzgLOhwB+3vVFILkN6H9Wbg86PqEYwwzMTY9z3NlpcLwRYw/UWOFOBTOYsMP3hnz6dIGqMl7iu12xxwFnrnw0MSbWyXwDFMqyGHLEyR4VALpwf/5lyPBjfa79/nu4uW/EaggubGcut2Varv6nO1ZSG6GJ981OXdaTWVHEN8/8y/AvVoJBhMKKNQRisJ+kIhMfW7yMH0/gn7PUQagAE2SpFP2vY9IfZVj97Nz9oRECm65aoWKwNgv8u6dVQ01sM3q+5ZAuNSWvto9rTYxlSICjyalltKASluflvO66xSIEsYIYtYSqrkfIGRSxuMaPgqCJ+GaB0VBU6Fy8rfRM5OwwYs97Dxfsd/v8JKTEWUw0PT+PWmlRZqlv0LBBMH819nrSuVlENmLIaa477Vk6nMHz3UCe8wmL0o9tO52fMEG4MajUPl8mDj24yTNaiUIdhs+xAeMxhCCvr3Kb8Kt+Sl9lt7FJ7wbdG2nl+P7/dIHDb1erfbOrXPJnHYCLGJawdM8ng2i7rjv5INl7tv8/urfpZ+kvXQ98vPzr0UWZ3glmM4Kugc5gvJNcYztpwB2pLhT3G1LHHfz7bYVAF55rxE23pbamfelQjn5QWBmEBK6MouQYetfNpjiVA9YD1uYYUrd8Iu9Zc6/X3AqqfuiJfqUqajhY="
-
-before_install:
-  - docker pull kontena/etcd:2.3.7
-  - docker run -d --net host --name etcd kontena/etcd:2.3.7
-
-script:
-  - bundle install --path vendor/bundle
-  - bundle exec rspec spec/
-
+  - secure: ZHC5AZLHHi4oK593ixNfMeFBfkfvF/L8n1f58uCtdrg0ohceyr0f/GTK33SAtscvhuIPNrQPiAlJ3P4V4R0nDB4rtbbXnDxjV+hWszqn3DJ5aKgekf7oQN1xeuTuwrQqUGpZt1JGF/NBVMZH/8iNmTjzyyg32V9CRdeeMJGSwQU4nonL7UchBRi8pM5uxcGj4JNDgBijDX3y9xfmN4ZNB3wF1lHQxpIVxeDLM9AkMA0NZny4WTYh4BtCpde14DRXQokol2sqosDvmsRYGw5T23REwtESalg1A+DIGecLOWoDkd8Ga6Wh0i3Xgvnp+CuxTdLVS7WpwRpNkAGjPe+uWLmZw+/YzkcAV2EUKmFnI2jxE9yG+2jtZmTg6bUhbTNJjc5mDMk6huelBD4SJ4ydINUfQUNigsL11MdaHhpTKi+B8vL75tJ5FVAtIgjbveMxdu0DlPubmUgfDN6gqXPgGmnVgsgqXDpLRVL3bWMxBlAoz+hEzVEy9Ki189mXOxRanACU71RuPBZJGo6f/gV2iA5svRScw3FBKqc6XZaZMvJZpBsctVtg2iaRGk9WgfN71E79LxgKIBZWG08sdwApRETWp0k5uB5u/6afHi356cexUG/YdtJBXihkfJdugC4pXXrO+Vawm8jzcnqXpLMGSap0hdhDGmOduoZHZAun3eM=
+  - secure: sifaUbM/Y4i/jWcvoMiuW6mA+6wfdnXOh1hgqbAF1hmy58JzDP9t/cRetRkoVK46cZ08fGlgvZxN72AHbHGMBNcKYaGMVuRLqTJH7fC4thz4cBXh+Tcn5tPA4BjFREFAZ26M4nHtQT2uOKeFuHtsr/xdU/VJ2HyN62v59ofEBDriMV2M8KPuflseUWOUcaXq7yujIHqdhkduFc9Cu89P1/vqDSGxQoObFjgAW9I1niXUVV0J0hmKieAmORgUvzAoTs7ZJF9XNUU1dOaOhLnslrGrdgPLnscpUWobVwpexsIlLRPwCyvQGlUzghmvvwDuKbnlaJSs4uZhvlNOUTVs1ILNtMwRi+jvrM6T8j4IBETx/BKMLmOmnodxjiD3yaKq+cBYEIES+voiKvDRwz/aN5NJa55ZudJq+SCZZ4tOwGRFWFGFCUYoYyHxEci4R0wma9ur8AypERYIwkOAURShPe4bEKjQQ6MObfGZbKIg+I+b4D1c4ot46D/9C7KJeysGfnPHzb0jC3x9nSoWIk5iNyxZG8Tep3Dt7ObCrovmyp4m5uN7S/sF6bPMvIu1+74kcKuMttErweaF1hDp4k5KeiWg9B4sxIrOqqRna8Ss3tCSSCupP1rbVRYyRT1o4duYiPBHjgL1smCtH1J3T3E1Hf3S6274KQ+wLOSkbgjsDkk=
+script: make build test
 deploy:
   - provider: script
-    script: "$TRAVIS_BUILD_DIR/build/travis/deploy.sh"
+    script: make build login push
     on:
       tags: true
-      rvm: 2.3.1
-      repo: kontena/kontena-ipam

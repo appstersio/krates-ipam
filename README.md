@@ -1,4 +1,4 @@
-# Kontena IPAM
+# Krates IPAM
 
 A Docker/libnetwork IPAM driver plugin, using etcd for cluster storage.
 
