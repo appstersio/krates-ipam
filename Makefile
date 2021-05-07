@@ -8,16 +8,16 @@ VERSION=$(shell cat VERSION)
 .PHONY: test build run login push
 
 build:
-	@docker build --no-cache --pull -t krates/ipam-plugin:${VERSION} .
+	@docker build --no-cache --pull -t quay.io/krates/ipam-plugin:${VERSION} -t quay.io/krates/ipam-plugin:latest .
 
 test:
-	@docker run -ti --rm -v "$$(pwd):/app" krates/ipam-plugin:${VERSION} bundle exec rspec spec/
+	@docker run -ti --rm -v "$$(pwd):/app" quay.io/krates/ipam-plugin:${VERSION} bundle exec rspec spec/
 
 run:
 	@docker-compose up
 
 login:
-	@docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+	@docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}" quay.io
 
 push:
-	@docker push krates/ipam-plugin:${VERSION}
+	@docker push quay.io/krates/ipam-plugin:${VERSION} quay.io/krates/ipam-plugin:latest
