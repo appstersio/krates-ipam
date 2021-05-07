@@ -1,5 +1,5 @@
 plugin:
-  image: krates/ipam-plugin:${VERSION}
+  image: quay.io/krates/ipam-plugin:${VERSION}
   net: host
   log_driver: journald
   volumes:
