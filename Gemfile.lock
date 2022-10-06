@@ -7,7 +7,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    addressable (2.3.8)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     backports (3.6.8)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -29,6 +30,7 @@ GEM
     mutations (0.7.2)
       activesupport
     net-ping (2.0.1)
+    public_suffix (5.0.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
